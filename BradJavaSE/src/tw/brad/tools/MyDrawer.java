@@ -19,6 +19,7 @@ public class MyDrawer extends JPanel {
 		
 		lines = new LinkedList<>();
 		
+		
 		MyMouseListener listener = new MyMouseListener();
 		addMouseListener(listener);
 		addMouseMotionListener(listener);
