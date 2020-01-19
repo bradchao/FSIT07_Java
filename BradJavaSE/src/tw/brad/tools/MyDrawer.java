@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 
 public class MyDrawer extends JPanel {
 	private LinkedList<LinkedList<HashMap<String, Integer>>> lines, recycle;
+	private Color color;
 	
 	public MyDrawer() {
 		setBackground(Color.YELLOW);
@@ -28,6 +29,7 @@ public class MyDrawer extends JPanel {
 		lines = new LinkedList<>();
 		recycle = new LinkedList<>();
 		
+		color = Color.BLUE;
 		
 		MyMouseListener listener = new MyMouseListener();
 		addMouseListener(listener);
@@ -48,7 +50,7 @@ public class MyDrawer extends JPanel {
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(Color.BLUE);
+		g2d.setColor(color);
 		g2d.setStroke(new BasicStroke(4));
 		
 		for (LinkedList<HashMap<String, Integer>> line : lines) {
@@ -63,6 +65,12 @@ public class MyDrawer extends JPanel {
 		
 	}
 	
+	public void setLineColor(Color newColor) {
+		color = newColor;
+		repaint();
+	}
+	
+	public Color getLineColor() {return color;}
 	public void clear() {
 		lines.clear();
 		repaint();
