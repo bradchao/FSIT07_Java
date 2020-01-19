@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +14,7 @@ import tw.brad.tools.MyDrawer;
 
 public class MySign extends JFrame{
 	private MyDrawer myDrawer;
-	private JButton clear, undo, redo;
+	private JButton clear, undo, redo, saveJPEG;
 	
 	public MySign() {
 		super("My Sign");
@@ -48,9 +49,16 @@ public class MySign extends JFrame{
 				myDrawer.redo();
 			}
 		});
+		saveJPEG = new JButton("Save JPEG");
+		saveJPEG.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myDrawer.saveJPEG(new File("dir2/brad.jpg"));
+			}
+		});
 		
 		topLine.add(clear); topLine.add(undo); topLine.add(redo);
-		
+		topLine.add(saveJPEG);
 		add(topLine, BorderLayout.NORTH);
 		
 

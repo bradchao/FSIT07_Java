@@ -6,9 +6,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class MyDrawer extends JPanel {
@@ -65,6 +69,22 @@ public class MyDrawer extends JPanel {
 			lines.add(recycle.removeLast());
 			repaint();
 		}
+	}
+	
+	public void saveJPEG(File file) {
+		BufferedImage img = new BufferedImage(
+				getWidth(), getHeight(), 
+				BufferedImage.TYPE_INT_RGB);
+		
+		Graphics g = img.getGraphics();
+		print(g);
+	    try {
+	        ImageIO.write(img, "jpg", file);
+	    } catch (IOException e) {
+	    	System.out.println(e.toString());
+	    }
+		
+		
 	}
 	
 	private class MyMouseListener extends MouseAdapter {
