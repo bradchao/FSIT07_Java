@@ -8,7 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -28,6 +32,15 @@ public class MyDrawer extends JPanel {
 		MyMouseListener listener = new MyMouseListener();
 		addMouseListener(listener);
 		addMouseMotionListener(listener);
+	}
+	
+	public MyDrawer(File newFile) {
+		this();
+		try {
+			loadObj(newFile);
+		}catch(Exception e) {
+			
+		}
 	}
 	
 	@Override
@@ -83,9 +96,26 @@ public class MyDrawer extends JPanel {
 	    } catch (IOException e) {
 	    	System.out.println(e.toString());
 	    }
-		
-		
 	}
+	
+	public void saveObj(File file) throws Exception {
+		ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(file));
+		oout.writeObject(lines);
+		oout.flush();
+		oout.close();
+	}
+	public void loadObj(File file) throws Exception {
+		ObjectInputStream oin = new ObjectInputStream(new FileInputStream(file));
+		Object obj = oin.readObject();
+		if (obj instanceof LinkedList) {
+			lines = (LinkedList<LinkedList<HashMap<String, Integer>>>)obj;
+			repaint();
+		}else {
+			throw new Exception();
+		}
+		oin.close();
+	}
+	
 	
 	private class MyMouseListener extends MouseAdapter {
 		@Override

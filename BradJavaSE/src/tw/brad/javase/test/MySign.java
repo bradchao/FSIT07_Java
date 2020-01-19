@@ -14,7 +14,7 @@ import tw.brad.tools.MyDrawer;
 
 public class MySign extends JFrame{
 	private MyDrawer myDrawer;
-	private JButton clear, undo, redo, saveJPEG;
+	private JButton clear, undo, redo, saveJPEG, saveObj, loadObj;
 	
 	public MySign() {
 		super("My Sign");
@@ -56,9 +56,31 @@ public class MySign extends JFrame{
 				myDrawer.saveJPEG(new File("dir2/brad.jpg"));
 			}
 		});
+		saveObj = new JButton("Save Obj");
+		saveObj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					myDrawer.saveObj(new File("dir2/brad.drawer"));
+				}catch(Exception e2) {
+					
+				}
+			}
+		});
+		loadObj = new JButton("Load Obj");
+		loadObj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					myDrawer.loadObj(new File("dir2/brad.drawer"));
+				}catch(Exception e2) {
+					
+				}
+			}
+		});
 		
 		topLine.add(clear); topLine.add(undo); topLine.add(redo);
-		topLine.add(saveJPEG);
+		topLine.add(saveJPEG);topLine.add(saveObj);topLine.add(loadObj);
 		add(topLine, BorderLayout.NORTH);
 		
 
