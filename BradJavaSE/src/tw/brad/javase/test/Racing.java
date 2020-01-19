@@ -40,6 +40,12 @@ public class Racing extends JFrame {
 	private int rank;
 	
 	private void go() {
+		go.setEnabled(false);
+		rank = 0;
+		// new round
+		for (int i=0; i<lanes.length; i++) {
+			lanes[i].setText((i+1) + ".");
+		}
 		for (int i=0; i<cars.length; i++) {
 			cars[i] = new Car(i);
 		}
@@ -61,7 +67,7 @@ public class Racing extends JFrame {
 					lanes[lane].setText(lanes[lane].getText() + ">");
 				}
 				try {
-					Thread.sleep(10 + (int)(Math.random()*300));
+					Thread.sleep(10 + (int)(Math.random()*200));
 				}catch(Exception e) {
 					break;
 				}
@@ -73,6 +79,7 @@ public class Racing extends JFrame {
 		for (int i=0; i<cars.length; i++) {
 			cars[i].interrupt();
 		}
+		go.setEnabled(true);
 	}
 	
 	
