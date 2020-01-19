@@ -12,12 +12,13 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 
 public class MyDrawer extends JPanel {
-	private LinkedList<LinkedList<HashMap<String, Integer>>> lines;
+	private LinkedList<LinkedList<HashMap<String, Integer>>> lines, recycle;
 	
 	public MyDrawer() {
 		setBackground(Color.YELLOW);
 		
 		lines = new LinkedList<>();
+		recycle = new LinkedList<>();
 		
 		
 		MyMouseListener listener = new MyMouseListener();
@@ -52,10 +53,17 @@ public class MyDrawer extends JPanel {
 	
 	public void undo() throws Exception {
 		if (lines.size()>0) {
-			lines.removeLast();
+			recycle.add(lines.removeLast());
 			repaint();
 		}else {
 			throw new Exception();
+		}
+	}
+	
+	public void redo() {
+		if (recycle.size()>0) {
+			lines.add(recycle.removeLast());
+			repaint();
 		}
 	}
 	
@@ -63,7 +71,7 @@ public class MyDrawer extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			super.mousePressed(e);
-			
+			recycle.clear();
 			LinkedList<HashMap<String, Integer>> line = new LinkedList<>();
 			lines.add(line);
 			
