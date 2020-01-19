@@ -45,6 +45,20 @@ public class MyDrawer extends JPanel {
 		
 	}
 	
+	public void clear() {
+		lines.clear();
+		repaint();
+	}
+	
+	public void undo() throws Exception {
+		if (lines.size()>0) {
+			lines.removeLast();
+			repaint();
+		}else {
+			throw new Exception();
+		}
+	}
+	
 	private class MyMouseListener extends MouseAdapter {
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -69,10 +83,17 @@ public class MyDrawer extends JPanel {
 			repaint();
 		}
 		
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			super.mouseReleased(e);
-		}
+
 	}
+	
+	private class Point {
+		private int x, y;
+		void setXY(int x, int y) {
+			this.x = x; this.y = y;
+		}
+		int getX() {return x;}
+		int getY() {return y;}
+	}
+	
 	
 }
